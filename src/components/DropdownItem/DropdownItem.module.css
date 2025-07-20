@@ -1,0 +1,10 @@
+.last-item {
+  margin-bottom: 24px;
+}
+
+.subsection-header {
+  font-weight: 400;
+  font-size: 1em;
+  line-height: 1.5;
+  padding: 8px 30px;
+}
