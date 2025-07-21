@@ -13,9 +13,13 @@ interface ProductsSectionProps {
 const ProductsSection = ({ products }: ProductsSectionProps) => {
   return (
     <div className={style['products-section']}>
-      {products.map((product) => (
-        <ProductCard product={product} key={product.name}></ProductCard>
-      ))}
+      {products.length !== 0 ? (
+        products.map((product) => (
+          <ProductCard product={product} key={product.name}></ProductCard>
+        ))
+      ) : (
+        <p>No projects matching search terms</p>
+      )}
     </div>
   );
 };

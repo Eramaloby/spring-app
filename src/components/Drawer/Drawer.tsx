@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { NAVBAR_CONTENT } from '../../constants/navbarContents';
+import {
+  NAVBAR_CONTENT,
+  type NavigationSection,
+} from '../../constants/navbarContents';
 
 import DrawerSectionsList from '../DrawerSectionsList/DrawerSectionsList';
 
@@ -9,6 +12,7 @@ import styles from './Drawer.module.css';
 interface DrawerProps {
   isShown: boolean;
   hideDrawer: () => void;
+  linksList: NavigationSection[];
 }
 
 const Drawer = ({ isShown, hideDrawer }: DrawerProps) => {

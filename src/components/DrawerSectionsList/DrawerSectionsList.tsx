@@ -30,6 +30,7 @@ const DrawerSectionsList = ({ sectionsList }: DrawerSectionProps) => {
           sectionItem={sectionItem}
           selected={selected}
           handleToggle={handleToggle}
+          key={sectionItem.label}
         ></DrawerSectionItem>
       ))}
     </ul>
