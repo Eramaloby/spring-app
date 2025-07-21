@@ -6,13 +6,19 @@ import styles from './DropdownToggle.module.css';
 
 interface DropdownToggleProps {
   label: string;
+  className?: string;
+  arrowClassName?: string;
 }
 
-const DropdownToggle = ({ label }: DropdownToggleProps) => {
+const DropdownToggle = ({
+  label,
+  className = '',
+  arrowClassName = '',
+}: DropdownToggleProps) => {
   return (
-    <span className={styles['dropdown-toggle']}>
+    <span className={`${styles['dropdown-toggle']} ${styles[className]}`}>
       {label}
-      <ArrowDownSvg></ArrowDownSvg>
+      <ArrowDownSvg className={arrowClassName}></ArrowDownSvg>
     </span>
   );
 };

@@ -2,10 +2,16 @@ import React from 'react';
 
 import styles from './ArrowDown.module.css';
 
-const ArrowDownSvg = () => {
+interface ArrowDownSvgProps {
+  className: string;
+}
+
+const ArrowDownSvg = ({ className }: ArrowDownSvgProps) => {
   return (
     <svg
-      className={styles['arrow-down']}
+      className={`${styles['arrow-down']} ${
+        className !== '' ? styles[className] : ''
+      }`}
       fill='none'
       stroke='currentColor'
       strokeWidth='2'

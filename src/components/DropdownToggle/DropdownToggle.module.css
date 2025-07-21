@@ -12,3 +12,12 @@
 .dropdown-toggle:hover {
   color: var(--spring-green-color);
 }
+
+.section-item-span {
+  color: var(--text-white);
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.4);
+  height: 60px;
+  margin: 1rem 0;
+  font-size: 2rem;
+  width: 100%;
+}

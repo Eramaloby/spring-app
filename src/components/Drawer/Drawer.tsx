@@ -1,7 +1,35 @@
 import React from 'react';
 
-const Drawer = () => {
-  return <div>Drawer</div>;
+import { NAVBAR_CONTENT } from '../../constants/navbarContents';
+
+import DrawerSectionsList from '../DrawerSectionsList/DrawerSectionsList';
+
+import styles from './Drawer.module.css';
+
+interface DrawerProps {
+  isShown: boolean;
+  hideDrawer: () => void;
+}
+
+const Drawer = ({ isShown, hideDrawer }: DrawerProps) => {
+  return (
+    <div className={`${styles.drawer} ${isShown ? styles.open : ''}`}>
+      <CloseIcon hideDrawer={hideDrawer}></CloseIcon>
+      <DrawerSectionsList sectionsList={NAVBAR_CONTENT}></DrawerSectionsList>
+    </div>
+  );
 };
 
 export default Drawer;
+
+interface CloseIconProps {
+  hideDrawer: () => void;
+}
+
+const CloseIcon = ({ hideDrawer }: CloseIconProps) => {
+  return (
+    <div className={styles['close-icon-wrapper']} onClick={hideDrawer}>
+      <div className={styles['close-icon']}></div>
+    </div>
+  );
+};
