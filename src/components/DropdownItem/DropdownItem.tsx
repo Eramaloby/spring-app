@@ -1,5 +1,3 @@
-import React from 'react';
-
 import type { NavigationItem } from '../../constants/navbarContents';
 
 import styles from './DropdownItem.module.css';

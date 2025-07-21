@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
   NAVBAR_CONTENT,
   type NavigationSection,

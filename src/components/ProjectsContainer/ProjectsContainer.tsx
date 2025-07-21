@@ -1,5 +1,3 @@
-import React from 'react';
-
 import style from './ProjectsContainer.module.css';
 
 const ProjectsContainer = () => {

@@ -1,4 +1,3 @@
-import React from 'react';
 import Hamburger from '../Hamburger/Hamburger';
 import { NAVBAR_CONTENT } from '../../constants/navbarContents';
 import NavigationLinksList from '../NavigationLinksList/NavigationLinksList';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './Hamburger.module.css';
 import Drawer from '../Drawer/Drawer';
 import { NAVBAR_CONTENT } from '../../constants/navbarContents';

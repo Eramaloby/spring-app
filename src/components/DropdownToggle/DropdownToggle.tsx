@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ArrowDownSvg from '../ArrowDownSvg/ArrowDownSvg';
 
 import styles from './DropdownToggle.module.css';

@@ -1,4 +1,3 @@
-import React from 'react';
 import type { NavigationSection } from '../../constants/navbarContents';
 import NavigationLinksItem from '../NavigationLinksItem/NavigationLinksItem';
 

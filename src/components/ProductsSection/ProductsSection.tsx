@@ -1,5 +1,3 @@
-import React from 'react';
-
 import style from './ProductsSection.module.css';
 
 import type { Product } from '../../constants/productsBlockContent';
