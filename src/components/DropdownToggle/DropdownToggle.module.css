@@ -1,0 +1,23 @@
+.dropdown-toggle {
+  text-decoration: none;
+  color: var(--button-color);
+  padding: 0 5px;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  cursor: pointer;
+}
+
+.dropdown-toggle:hover {
+  color: var(--spring-green-color);
+}
+
+.section-item-span {
+  color: var(--text-white);
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.4);
+  height: 60px;
+  margin: 1rem 0;
+  font-size: 2rem;
+  width: 100%;
+}

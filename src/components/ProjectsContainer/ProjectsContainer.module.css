@@ -1,0 +1,19 @@
+.description {
+  font-size: 1.3rem;
+}
+
+.release-calendar-button {
+  background-color: transparent;
+  border: 2px solid var(--button-color);
+  padding: 18px 25px;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.release-calendar-button:hover {
+  background-color: var(--button-color);
+  color: var(--navbar-bg-color);
+}

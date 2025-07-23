@@ -1,0 +1,30 @@
+.logo-container {
+  width: 200px;
+  height: auto;
+  cursor: pointer;
+}
+
+.logo {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.logo .st0 {
+  fill: var(--spring-green-color);
+}
+
+.logo .st1 {
+  fill: var(--spring-green-color);
+}
+
+.logo .st3 {
+  fill: var(--navbar-bg-color);
+}
+
+@media (min-width: 1000px) {
+  .logo-container {
+    width: 300px;
+    margin-right: 40px;
+  }
+}

@@ -1,0 +1,17 @@
+.arrow-down {
+  margin-left: 5px;
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+}
+
+.in-drawer {
+  transition: transform 0.3s ease;
+  margin-left: auto;
+  width: 30px;
+  height: 30px;
+}
+
+.upside-down {
+  transform: rotate(180deg);
+}
