@@ -1,4 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useCallback } from 'react';
+
+import useDebounce from '../../utils/useDebounce';
 
 import styles from './SearchProducts.module.css';
 
@@ -11,35 +13,15 @@ interface SearchProductsProps {
 
 const SearchProducts = ({ products, setProducts }: SearchProductsProps) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    if (debounceTimer.current) {
-      clearTimeout(debounceTimer.current);
-    }
+  const debouncedSearch = useCallback(() => {
+    const filtered = products.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setProducts(filtered);
+  }, [searchTerm, products, setProducts]);
 
-    debounceTimer.current = setTimeout(() => {
-      performSearch(searchTerm, products);
-    }, 300);
-
-    return () => {
-      if (debounceTimer.current) {
-        clearTimeout(debounceTimer.current);
-      }
-    };
-  }, [searchTerm, products]);
-
-  const performSearch = (currentSearchTerm: string, allProducts: Product[]) => {
-    const term = currentSearchTerm.toLowerCase().trim();
-    const filteredProducts = allProducts.filter((product) => {
-      const nameMatches = product.name.toLowerCase().includes(term);
-      const descriptionMatches = product.description
-        .toLowerCase()
-        .includes(term);
-      return nameMatches || descriptionMatches;
-    });
-    setProducts(filteredProducts);
-  };
+  useDebounce(debouncedSearch, 300);
 
   return (
     <>
