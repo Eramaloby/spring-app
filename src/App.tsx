@@ -1,25 +1,20 @@
-import { useState } from 'react';
 import './App.css';
+import { Provider } from 'react-redux';
+
 import Navbar from './components/Navbar/Navbar';
 import Main from './components/Main/Main';
 import ProductsSection from './components/ProductsSection/ProductsSection';
 import SearchProducts from './components/SearchProducts/SearchProducts';
-import { PRODUCTS_BlOCK_CONTENT } from './constants/productsBlockContent';
+import { store } from './store';
 
 function App() {
-  const [filteredProducts, setFilteredProducts] = useState(
-    PRODUCTS_BlOCK_CONTENT
-  );
   return (
-    <>
+    <Provider store={store}>
       <Navbar></Navbar>
       <Main></Main>
-      <SearchProducts
-        products={PRODUCTS_BlOCK_CONTENT}
-        setProducts={setFilteredProducts}
-      ></SearchProducts>
-      <ProductsSection products={filteredProducts}></ProductsSection>
-    </>
+      <SearchProducts></SearchProducts>
+      <ProductsSection></ProductsSection>
+    </Provider>
   );
 }
 

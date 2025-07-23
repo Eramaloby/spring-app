@@ -1,13 +1,11 @@
-import type { NavigationSection } from '../../constants/navbarContents';
 import NavigationLinksItem from '../NavigationLinksItem/NavigationLinksItem';
 
 import style from './NavigationLinksList.module.css';
 
-interface NavigationLinksListProps {
-  linksList: NavigationSection[];
-}
+import { useAppSelector } from '../../hooks/useAppHooks';
 
-const NavigationLinksList = ({ linksList }: NavigationLinksListProps) => {
+const NavigationLinksList = () => {
+  const linksList = useAppSelector((state) => state.navbar.navbarContent);
   return (
     <ul className={style['nav-links__list']}>
       {linksList.map((linksItem) => (
