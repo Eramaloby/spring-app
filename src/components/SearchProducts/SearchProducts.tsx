@@ -19,7 +19,6 @@ const SearchProducts = () => {
         product.description.toLowerCase().includes(searchTerm.toLowerCase())
     );
     dispatch(setProductsToShow(filtered));
-    console.log(filtered);
   }, [searchTerm, products, dispatch]);
 
   useDebounce(debouncedSearch, 300);

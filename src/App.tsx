@@ -1,20 +1,35 @@
 import './App.css';
-import { Provider } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
+import HomePage from './pages/HomePage/HomePage';
 
-import Navbar from './components/Navbar/Navbar';
-import Main from './components/Main/Main';
-import ProductsSection from './components/ProductsSection/ProductsSection';
-import SearchProducts from './components/SearchProducts/SearchProducts';
-import { store } from './store';
+import { useAppSelector } from './hooks/useAppHooks';
+
+import LoginPage from './pages/LoginPage/LoginPage';
 
 function App() {
+  const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
   return (
-    <Provider store={store}>
-      <Navbar></Navbar>
-      <Main></Main>
-      <SearchProducts></SearchProducts>
-      <ProductsSection></ProductsSection>
-    </Provider>
+    <Router>
+      <Routes>
+        <Route
+          path='/'
+          element={
+            isAuthenticated ? <HomePage /> : <Navigate to='/login' replace />
+          }
+        />
+        <Route
+          path='login'
+          element={
+            isAuthenticated ? <Navigate to='/' replace /> : <LoginPage />
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 

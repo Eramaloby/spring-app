@@ -4,6 +4,7 @@ import type { NavigationSection } from '../constants/navbarContents';
 export interface UserState {
   login: string;
   password: string;
+  isAuthenticated: boolean;
 }
 
 export interface ProductsState {
@@ -23,6 +24,7 @@ export interface RootState {
 
 export const SET_USER_LOGIN = 'SET_USER_LOGIN';
 export const SET_USER_PASSWORD = 'SET_USER_PASSWORD';
+export const SET_USER_IS_AUTHENTICATED = 'SET_USER_IS_AUTHENTICATED';
 export const SET_PRODUCTS_TO_SHOW = 'SET_PRODUCTS_TO_SHOW';
 
 interface SetUserLoginAction {
@@ -35,6 +37,10 @@ interface SetUserPasswordAction {
   payload: string;
 }
 
+interface SetUserIsLoggedAction {
+  type: typeof SET_USER_IS_AUTHENTICATED;
+}
+
 interface SetProductsToShow {
   type: typeof SET_PRODUCTS_TO_SHOW;
   payload: Product[];
@@ -43,4 +49,5 @@ interface SetProductsToShow {
 export type AppActions =
   | SetUserLoginAction
   | SetUserPasswordAction
+  | SetUserIsLoggedAction
   | SetProductsToShow;

@@ -1,6 +1,7 @@
 import {
   SET_USER_LOGIN,
   SET_USER_PASSWORD,
+  SET_USER_IS_AUTHENTICATED,
   SET_PRODUCTS_TO_SHOW,
   type AppActions,
 } from './types';
@@ -14,6 +15,10 @@ export const setUserLogin = (login: string): AppActions => ({
 export const setUserPassword = (password: string): AppActions => ({
   type: SET_USER_PASSWORD,
   payload: password,
+});
+
+export const setUserIsAuthenticated = (): AppActions => ({
+  type: SET_USER_IS_AUTHENTICATED,
 });
 
 export const setProductsToShow = (productsToShow: Product[]): AppActions => ({
