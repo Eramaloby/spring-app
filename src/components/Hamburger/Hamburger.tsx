@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './Hamburger.module.css';
 import Drawer from '../Drawer/Drawer';
+import { NAVBAR_CONTENT } from '../../constants/navbarContents';
 
 const Hamburger = () => {
   const [drawerShown, setDrawerShown] = useState(false);
@@ -19,7 +20,11 @@ const Hamburger = () => {
         <span></span>
         <span></span>
       </div>
-      <Drawer isShown={drawerShown} hideDrawer={hideDrawer}></Drawer>
+      <Drawer
+        isShown={drawerShown}
+        hideDrawer={hideDrawer}
+        linksList={NAVBAR_CONTENT}
+      ></Drawer>
     </>
   );
 };

@@ -5,7 +5,7 @@ import useDebounce from '../../hooks/useDebounce';
 import styles from './SearchProducts.module.css';
 
 import { useAppSelector, useAppDispatch } from '../../hooks/useAppHooks';
-import { setProductsToShow } from '../../store/actions';
+import { setProductsToShow } from '../../store/products/products.actions';
 
 const SearchProducts = () => {
   const [searchTerm, setSearchTerm] = useState('');

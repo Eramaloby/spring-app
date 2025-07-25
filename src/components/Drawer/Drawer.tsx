@@ -2,19 +2,19 @@ import DrawerSectionsList from '../DrawerSectionsList/DrawerSectionsList';
 
 import styles from './Drawer.module.css';
 
-import { useAppSelector } from '../../hooks/useAppHooks';
+import type { NavigationSection } from '../../constants/navbarContents';
 
 interface DrawerProps {
   isShown: boolean;
   hideDrawer: () => void;
+  linksList: NavigationSection[];
 }
 
-const Drawer = ({ isShown, hideDrawer }: DrawerProps) => {
-  const linksList = useAppSelector((state) => state.navbar.navbarContent);
+const Drawer = ({ isShown, hideDrawer, linksList }: DrawerProps) => {
   return (
     <div className={`${styles.drawer} ${isShown ? styles.open : ''}`}>
-      <CloseIcon hideDrawer={hideDrawer}></CloseIcon>
-      <DrawerSectionsList sectionsList={linksList}></DrawerSectionsList>
+      <CloseIcon hideDrawer={hideDrawer} />
+      <DrawerSectionsList sectionsList={linksList} />
     </div>
   );
 };

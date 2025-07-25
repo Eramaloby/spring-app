@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch } from '../../hooks/useAppHooks';
-import { setUserIsAuthenticated } from '../../store/actions';
+import { setUserIsAuthenticated } from '../../store/user/user.actions';
 
 import styles from './LoginPage.module.css';
 
