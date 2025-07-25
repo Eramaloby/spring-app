@@ -1,11 +1,14 @@
 import style from './ProductsSection.module.css';
 
+import type { Product } from '../../constants/productsBlockContent';
+
 import ProductCard from '../ProductCard/ProductCard';
 
-import { useAppSelector } from '../../hooks/useAppHooks';
+interface ProductsSectionProps {
+  products: Product[];
+}
 
-const ProductsSection = () => {
-  const products = useAppSelector((state) => state.products.productsToShow);
+const ProductsSection = ({ products }: ProductsSectionProps) => {
   return (
     <div className={style['products-section']}>
       {products.length !== 0 ? (
