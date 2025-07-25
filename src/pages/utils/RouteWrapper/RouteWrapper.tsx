@@ -5,11 +5,22 @@ import { useAppSelector } from '../../../hooks/useAppHooks';
 
 interface RouteWrapperProps {
   children: ReactNode;
+  guestOnly?: boolean;
 }
 
-const RouteWrapper = ({ children }: RouteWrapperProps) => {
+const RouteWrapper = ({ children, guestOnly = false }: RouteWrapperProps) => {
   const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
-  return isAuthenticated ? children : <Navigate to='/login' replace />;
+  if (guestOnly) {
+    if (isAuthenticated) {
+      return <Navigate to='/' replace />;
+    }
+  } else {
+    if (!isAuthenticated) {
+      return <Navigate to='/login' replace />;
+    }
+  }
+
+  return <>{children}</>;
 };
 
 export default RouteWrapper;

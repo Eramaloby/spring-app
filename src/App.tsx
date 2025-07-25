@@ -1,19 +1,11 @@
 import './App.css';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage/HomePage';
-
-import { useAppSelector } from './hooks/useAppHooks';
 
 import LoginPage from './pages/LoginPage/LoginPage';
 import RouteWrapper from './pages/utils/RouteWrapper/RouteWrapper';
 
 function App() {
-  const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
   return (
     <Router>
       <Routes>
@@ -28,7 +20,9 @@ function App() {
         <Route
           path='/login'
           element={
-            isAuthenticated ? <Navigate to='/' replace /> : <LoginPage />
+            <RouteWrapper guestOnly={true}>
+              <LoginPage />
+            </RouteWrapper>
           }
         />
       </Routes>
