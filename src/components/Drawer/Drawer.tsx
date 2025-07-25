@@ -1,11 +1,8 @@
-import {
-  NAVBAR_CONTENT,
-  type NavigationSection,
-} from '../../constants/navbarContents';
-
 import DrawerSectionsList from '../DrawerSectionsList/DrawerSectionsList';
 
 import styles from './Drawer.module.css';
+
+import type { NavigationSection } from '../../constants/navbarContents';
 
 interface DrawerProps {
   isShown: boolean;
@@ -13,11 +10,11 @@ interface DrawerProps {
   linksList: NavigationSection[];
 }
 
-const Drawer = ({ isShown, hideDrawer }: DrawerProps) => {
+const Drawer = ({ isShown, hideDrawer, linksList }: DrawerProps) => {
   return (
     <div className={`${styles.drawer} ${isShown ? styles.open : ''}`}>
-      <CloseIcon hideDrawer={hideDrawer}></CloseIcon>
-      <DrawerSectionsList sectionsList={NAVBAR_CONTENT}></DrawerSectionsList>
+      <CloseIcon hideDrawer={hideDrawer} />
+      <DrawerSectionsList sectionsList={linksList} />
     </div>
   );
 };

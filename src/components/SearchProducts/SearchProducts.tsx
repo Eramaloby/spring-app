@@ -1,25 +1,25 @@
 import { useState, useCallback } from 'react';
 
-import useDebounce from '../../utils/useDebounce';
+import useDebounce from '../../hooks/useDebounce';
 
 import styles from './SearchProducts.module.css';
 
-import type { Product } from '../../constants/productsBlockContent';
+import { useAppSelector, useAppDispatch } from '../../hooks/useAppHooks';
+import { setProductsToShow } from '../../store/products/products.actions';
 
-interface SearchProductsProps {
-  products: Product[];
-  setProducts: (filteredProducts: Product[]) => void;
-}
-
-const SearchProducts = ({ products, setProducts }: SearchProductsProps) => {
+const SearchProducts = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const products = useAppSelector((state) => state.products.productsContent);
+  const dispatch = useAppDispatch();
 
   const debouncedSearch = useCallback(() => {
-    const filtered = products.filter((product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    const filtered = products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    setProducts(filtered);
-  }, [searchTerm, products, setProducts]);
+    dispatch(setProductsToShow(filtered));
+  }, [searchTerm, products, dispatch]);
 
   useDebounce(debouncedSearch, 300);
 

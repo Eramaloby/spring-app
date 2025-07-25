@@ -1,25 +1,32 @@
-import { useState } from 'react';
 import './App.css';
-import Navbar from './components/Navbar/Navbar';
-import Main from './components/Main/Main';
-import ProductsSection from './components/ProductsSection/ProductsSection';
-import SearchProducts from './components/SearchProducts/SearchProducts';
-import { PRODUCTS_BlOCK_CONTENT } from './constants/productsBlockContent';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage/HomePage';
+
+import LoginPage from './pages/LoginPage/LoginPage';
+import RouteWrapper from './pages/utils/RouteWrapper/RouteWrapper';
 
 function App() {
-  const [filteredProducts, setFilteredProducts] = useState(
-    PRODUCTS_BlOCK_CONTENT
-  );
   return (
-    <>
-      <Navbar></Navbar>
-      <Main></Main>
-      <SearchProducts
-        products={PRODUCTS_BlOCK_CONTENT}
-        setProducts={setFilteredProducts}
-      ></SearchProducts>
-      <ProductsSection products={filteredProducts}></ProductsSection>
-    </>
+    <Router>
+      <Routes>
+        <Route
+          path='/'
+          element={
+            <RouteWrapper>
+              <HomePage />
+            </RouteWrapper>
+          }
+        />
+        <Route
+          path='/login'
+          element={
+            <RouteWrapper guestOnly={true}>
+              <LoginPage />
+            </RouteWrapper>
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 
