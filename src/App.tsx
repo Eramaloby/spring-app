@@ -10,6 +10,7 @@ import HomePage from './pages/HomePage/HomePage';
 import { useAppSelector } from './hooks/useAppHooks';
 
 import LoginPage from './pages/LoginPage/LoginPage';
+import RouteWrapper from './pages/utils/RouteWrapper/RouteWrapper';
 
 function App() {
   const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
@@ -19,11 +20,13 @@ function App() {
         <Route
           path='/'
           element={
-            isAuthenticated ? <HomePage /> : <Navigate to='/login' replace />
+            <RouteWrapper>
+              <HomePage />
+            </RouteWrapper>
           }
         />
         <Route
-          path='login'
+          path='/login'
           element={
             isAuthenticated ? <Navigate to='/' replace /> : <LoginPage />
           }
