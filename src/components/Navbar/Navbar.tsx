@@ -5,8 +5,8 @@ import styles from './Navbar.module.css';
 export const Navbar = () => {
   return (
     <div className={styles.navbar}>
-      <Logo />
-      <NavigationLinks />
+      <Logo></Logo>
+      <NavigationLinks></NavigationLinks>
     </div>
   );
 };
