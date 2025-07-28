@@ -7,9 +7,7 @@ interface ArrowDownSvgProps {
 const ArrowDownSvg = ({ className }: ArrowDownSvgProps) => {
   return (
     <svg
-      className={`${styles['arrow-down']} ${
-        className !== '' ? styles[className] : ''
-      }`}
+      className={`${styles['arrow-down']} ${className !== '' ? styles[className] : ''}`}
       fill='none'
       stroke='currentColor'
       strokeWidth='2'

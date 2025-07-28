@@ -10,9 +10,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div className={styles['product-card']}>
       <ProductIcon name={product.name} src={product.src}></ProductIcon>
-      <ProductDescription
-        description={product.description}
-      ></ProductDescription>
+      <ProductDescription description={product.description}></ProductDescription>
       <ProductVersion
         currentVersion={product.currentVersion}
         versionsCount={product.versionsCount}
@@ -50,10 +48,7 @@ interface ProductVersionProps {
   versionsCount: number;
 }
 
-const ProductVersion = ({
-  currentVersion,
-  versionsCount,
-}: ProductVersionProps) => {
+const ProductVersion = ({ currentVersion, versionsCount }: ProductVersionProps) => {
   return (
     <div className={styles['product-version']}>
       <span className={styles['version-badge']}>{currentVersion}</span>

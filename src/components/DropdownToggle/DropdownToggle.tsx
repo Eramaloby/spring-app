@@ -8,11 +8,7 @@ interface DropdownToggleProps {
   arrowClassName?: string;
 }
 
-const DropdownToggle = ({
-  label,
-  className = '',
-  arrowClassName = '',
-}: DropdownToggleProps) => {
+const DropdownToggle = ({ label, className = '', arrowClassName = '' }: DropdownToggleProps) => {
   return (
     <span className={`${styles['dropdown-toggle']} ${styles[className]}`}>
       {label}

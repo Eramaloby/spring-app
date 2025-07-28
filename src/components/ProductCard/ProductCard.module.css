@@ -11,7 +11,9 @@
   min-height: 250px;
   box-sizing: border-box;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition:
+    transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
 }
 
 .product-card:hover {

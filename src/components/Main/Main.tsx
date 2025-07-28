@@ -23,13 +23,9 @@ interface ContainerProps {
 const Container = ({ className, children }: ContainerProps) => {
   const classNamesArray = className ? className.split(' ') : [];
 
-  const moduleClasses = classNamesArray
-    .map((name) => style[name])
-    .filter(Boolean);
+  const moduleClasses = classNamesArray.map((name) => style[name]).filter(Boolean);
 
-  const containerClasses = `${style.container} ${moduleClasses.join(
-    ' '
-  )}`.trim();
+  const containerClasses = `${style.container} ${moduleClasses.join(' ')}`.trim();
   return <div className={containerClasses}>{children}</div>;
 };
 

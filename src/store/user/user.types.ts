@@ -22,7 +22,4 @@ export interface SetUserIsAuthenticatedAction {
   type: typeof SET_USER_IS_AUTHENTICATED;
 }
 
-export type UserActions =
-  | SetUserLoginAction
-  | SetUserPasswordAction
-  | SetUserIsAuthenticatedAction;
+export type UserActions = SetUserLoginAction | SetUserPasswordAction | SetUserIsAuthenticatedAction;

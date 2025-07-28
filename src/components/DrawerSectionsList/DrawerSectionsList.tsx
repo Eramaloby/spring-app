@@ -1,9 +1,6 @@
 import { useState } from 'react';
 
-import type {
-  NavigationSection,
-  NavigationItem,
-} from '../../constants/navbarContents';
+import type { NavigationSection, NavigationItem } from '../../constants/navbarContents';
 
 import DropdownToggle from '../DropdownToggle/DropdownToggle';
 import DropdownItem from '../DropdownItem/DropdownItem';
@@ -45,11 +42,7 @@ interface DrawerSectionItemProps {
   handleToggle: (label: string) => void;
 }
 
-const DrawerSectionItem = ({
-  sectionItem,
-  selected,
-  handleToggle,
-}: DrawerSectionItemProps) => {
+const DrawerSectionItem = ({ sectionItem, selected, handleToggle }: DrawerSectionItemProps) => {
   const hasDropdown = sectionItem.data.length !== 0;
   const isSelected = selected === sectionItem.label;
 

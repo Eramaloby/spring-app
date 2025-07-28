@@ -1,8 +1,4 @@
-import {
-  type ProductsActions,
-  type ProductsState,
-  SET_PRODUCTS_TO_SHOW,
-} from './products.types';
+import { type ProductsActions, type ProductsState, SET_PRODUCTS_TO_SHOW } from './products.types';
 
 import { PRODUCTS_BlOCK_CONTENT } from '../../constants/productsBlockContent';
 
