@@ -1,28 +1,88 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { isRejectedWithValue } from '@reduxjs/toolkit';
+
+import {
+  isFetchBaseQueryError,
+  isSerializedError,
+  isHttpError,
+  isNetworkError,
+} from '../utils/typeGuards/typeGuards';
+
 import { useAppDispatch } from '../../hooks/useAppHooks';
-import { setUserIsAuthenticated } from '../../store/user/user.actions';
+
+import { useLoginMutation } from '../../services/authApi';
+import { loginSuccess, userLoading, userError } from '../../features/user/userSlice';
 
 import styles from './LoginPage.module.css';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
+  const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
+  const [performLogin, { isLoading, isError, error: loginError }] = useLoginMutation();
 
-    if (username === 'admin' && password === '1234') {
-      dispatch(setUserIsAuthenticated());
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(userLoading());
+
+    try {
+      const result = await performLogin({ login, password }).unwrap();
+
+      dispatch(loginSuccess(result.user));
+
       navigate('/');
-    } else {
-      setError('Wrong username or password!');
+    } catch (err: unknown) {
+      let errorMessage: string = 'Unknown login error.';
+
+      if (isRejectedWithValue(err)) {
+        if (isFetchBaseQueryError(err)) {
+          if (isHttpError(err)) {
+            if (err.data && typeof err.data === 'object' && 'message' in err.data) {
+              errorMessage = (err.data as { message: string }).message;
+            }
+          } else if (isNetworkError(err)) {
+            errorMessage = err.error;
+          }
+        } else if (isSerializedError(err)) {
+          if (typeof err.message === 'string') {
+            errorMessage = err.message;
+          }
+        }
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+
+      console.error('Login failed:', err); // eslint-disable-line no-console
+      dispatch(userError(errorMessage));
     }
+  };
+
+  const displayErrorMessage = () => {
+    if (!isError || !loginError) return null;
+
+    if (isFetchBaseQueryError(loginError)) {
+      if (isHttpError(loginError)) {
+        if (
+          loginError.data &&
+          typeof loginError.data === 'object' &&
+          'message' in loginError.data
+        ) {
+          return (loginError.data as { message: string }).message;
+        }
+      } else if (isNetworkError(loginError)) {
+        return loginError.error;
+      }
+    } else if (isSerializedError(loginError)) {
+      if (typeof loginError.message === 'string') {
+        return loginError.message;
+      }
+    }
+    return 'Unknown login error.';
   };
 
   return (
@@ -32,12 +92,7 @@ const LoginPage = () => {
         <form onSubmit={handleLogin}>
           <div>
             <label htmlFor={styles['username']}>User name:</label>
-            <input
-              type='text'
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
+            <input type='text' value={login} onChange={(e) => setLogin(e.target.value)} required />
           </div>
           <div>
             <label htmlFor={styles['password']}>Password:</label>
@@ -48,8 +103,10 @@ const LoginPage = () => {
               required
             />
           </div>
-          {error && <p className={styles['error-message']}>{error}</p>}
-          <button type='submit'>Log in</button>
+          {isError && <p className={styles['error-message']}>{displayErrorMessage()}</p>}
+          <button type='submit' disabled={isLoading}>
+            Log in
+          </button>
         </form>
       </div>
     </div>

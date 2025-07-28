@@ -1,27 +1,37 @@
-import { useState, useCallback } from 'react';
-
+import { useState, useCallback, useEffect } from 'react';
 import useDebounce from '../../hooks/useDebounce';
 
 import styles from './SearchProducts.module.css';
 
-import { useAppSelector, useAppDispatch } from '../../hooks/useAppHooks';
-import { setProductsToShow } from '../../store/products/products.actions';
+import { useGetProductsQuery } from '../../services/productsApi';
 
-const SearchProducts = () => {
+import { type Product } from '../../constants/productsBlockContent';
+
+interface SearchProductsProps {
+  setProductsToShow: (product: Product[]) => void;
+}
+
+const SearchProducts = ({ setProductsToShow }: SearchProductsProps) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const products = useAppSelector((state) => state.products.productsContent);
-  const dispatch = useAppDispatch();
 
-  const debouncedSearch = useCallback(() => {
-    const filtered = products.filter(
-      (product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    dispatch(setProductsToShow(filtered));
-  }, [searchTerm, products, dispatch]);
+  const [querySearchTerm, setQuerySearchTerm] = useState('');
 
-  useDebounce(debouncedSearch, 300);
+  const updateQuerySearchTerm = useCallback(() => {
+    setQuerySearchTerm(searchTerm);
+  }, [searchTerm]);
+
+  useDebounce(updateQuerySearchTerm, 300);
+
+  const { data: productsData, isError, error } = useGetProductsQuery(querySearchTerm);
+
+  useEffect(() => {
+    if (isError) {
+      console.error('Projects searching error', error); // eslint-disable-line no-console
+      setProductsToShow([]);
+    } else if (productsData) {
+      setProductsToShow(productsData);
+    }
+  }, [productsData, isError, error, setProductsToShow]);
 
   return (
     <>
