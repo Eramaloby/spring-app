@@ -92,12 +92,19 @@ const LoginPage = () => {
         <form onSubmit={handleLogin}>
           <div>
             <label htmlFor={styles['username']}>User name:</label>
-            <input type='text' value={login} onChange={(e) => setLogin(e.target.value)} required />
+            <input
+              type='text'
+              id='username'
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
+              required
+            />
           </div>
           <div>
             <label htmlFor={styles['password']}>Password:</label>
             <input
               type='password'
+              id='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
