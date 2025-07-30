@@ -3,18 +3,17 @@ import useDebounce from '../../hooks/useDebounce';
 
 import styles from './SearchProducts.module.css';
 
+import { useAppDispatch } from '../../hooks/useAppHooks';
+import { setProducts } from '../../features/products/productsSlice';
+
 import { useGetProductsQuery } from '../../services/productsApi';
 
-import { type Product } from '../../constants/productsBlockContent';
-
-interface SearchProductsProps {
-  setProductsToShow: (product: Product[]) => void;
-}
-
-const SearchProducts = ({ setProductsToShow }: SearchProductsProps) => {
+const SearchProducts = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const [querySearchTerm, setQuerySearchTerm] = useState('');
+
+  const dispatch = useAppDispatch();
 
   const updateQuerySearchTerm = useCallback(() => {
     setQuerySearchTerm(searchTerm);
@@ -27,11 +26,11 @@ const SearchProducts = ({ setProductsToShow }: SearchProductsProps) => {
   useEffect(() => {
     if (isError) {
       console.error('Projects searching error', error); // eslint-disable-line no-console
-      setProductsToShow([]);
+      dispatch(setProducts([]));
     } else if (productsData) {
-      setProductsToShow(productsData);
+      dispatch(setProducts(productsData));
     }
-  }, [productsData, isError, error, setProductsToShow]);
+  }, [productsData, isError, error, dispatch]);
 
   return (
     <>

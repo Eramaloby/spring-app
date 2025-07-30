@@ -20,7 +20,7 @@ const Hamburger = () => {
         <span></span>
         <span></span>
       </div>
-      <Drawer isShown={drawerShown} hideDrawer={hideDrawer} linksList={NAVBAR_CONTENT}></Drawer>
+      <Drawer isShown={drawerShown} hideDrawer={hideDrawer} linksList={NAVBAR_CONTENT} />
     </>
   );
 };

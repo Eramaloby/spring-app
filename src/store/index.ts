@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '../features/user/userSlice';
+import productsReducer from '../features/products/productsSlice';
 import { productsApi } from '../services/productsApi';
 import { authApi } from '../services/authApi';
 import { rtkQueryLogger } from './middleware/apiLogger';
@@ -7,6 +8,7 @@ import { rtkQueryLogger } from './middleware/apiLogger';
 export const store = configureStore({
   reducer: {
     user: userReducer,
+    productsList: productsReducer,
     [productsApi.reducerPath]: productsApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
   },

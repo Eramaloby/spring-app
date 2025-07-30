@@ -1,5 +1,6 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { type User, type UserState } from './userTypes';
+import { createSlice } from '@reduxjs/toolkit';
+import type { UserState } from './userTypes';
+import { loginSuccessReducer, userLoadingReducer, userErrorReducer } from './userReducers';
 
 const initialUserState: UserState = {
   currentUser: null,
@@ -12,20 +13,9 @@ const userSlice = createSlice({
   name: 'user',
   initialState: initialUserState,
   reducers: {
-    loginSuccess: (state, action: PayloadAction<User>) => {
-      state.currentUser = action.payload;
-      state.isAuthenticated = true;
-      state.loading = 'succeeded';
-      state.error = null;
-    },
-    userLoading: (state) => {
-      state.loading = 'pending';
-      state.error = null;
-    },
-    userError: (state, action: PayloadAction<string>) => {
-      state.loading = 'failed';
-      state.error = action.payload;
-    },
+    loginSuccess: loginSuccessReducer,
+    userLoading: userLoadingReducer,
+    userError: userErrorReducer,
   },
 });
 
