@@ -5,8 +5,9 @@ import {
   type LoginRequestBody,
   type LoginErrorResponse,
 } from '../types/auth.types';
+import { getApiUrl } from '../pages/utils/getApiUrl/getApiUrl';
 
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = getApiUrl();
 
 export const authApi = createApi({
   reducerPath: 'authApi',

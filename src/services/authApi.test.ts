@@ -7,8 +7,9 @@ import type {
 } from '../types/auth.types';
 
 import type { User } from '../features/user/userTypes';
+import { getApiUrl } from '../pages/utils/getApiUrl/getApiUrl';
 
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = getApiUrl();
 
 let store: ReturnType<typeof setupApiStore>;
 
