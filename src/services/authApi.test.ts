@@ -1,4 +1,3 @@
-// src/services/authApi.test.ts
 import { setupApiStore } from '../test-utils/testStore';
 import { authApi } from './authApi';
 import type {
@@ -8,6 +7,8 @@ import type {
 } from '../types/auth.types';
 
 import type { User } from '../features/user/userTypes';
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 let store: ReturnType<typeof setupApiStore>;
 
@@ -76,7 +77,7 @@ describe('authApi - login mutation (fetch mock)', () => {
 
     expect(actualRequest).toBeInstanceOf(Request);
 
-    expect(actualRequest.url).toBe('http://localhost:3000/login');
+    expect(actualRequest.url).toBe(`${apiUrl}login`);
     expect(actualRequest.method).toBe('POST');
     expect(actualRequest.headers.get('Content-Type')).toBe('application/json');
 
