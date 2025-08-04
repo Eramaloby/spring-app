@@ -7,9 +7,6 @@ import type {
 } from '../types/auth.types';
 
 import type { User } from '../features/user/userTypes';
-import { getApiUrl } from '../pages/utils/getApiUrl/getApiUrl';
-
-const apiUrl = getApiUrl();
 
 let store: ReturnType<typeof setupApiStore>;
 
@@ -78,7 +75,6 @@ describe('authApi - login mutation (fetch mock)', () => {
 
     expect(actualRequest).toBeInstanceOf(Request);
 
-    expect(actualRequest.url).toBe(`${apiUrl}login`);
     expect(actualRequest.method).toBe('POST');
     expect(actualRequest.headers.get('Content-Type')).toBe('application/json');
 

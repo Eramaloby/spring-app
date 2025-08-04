@@ -5,7 +5,6 @@ export function isFetchBaseQueryError(error: unknown): error is FetchBaseQueryEr
   return typeof error === 'object' && error != null && 'status' in error;
 }
 
-// Type Guard для SerializedError
 export function isSerializedError(error: unknown): error is SerializedError {
   return typeof error === 'object' && error != null && 'message' in error && !('status' in error);
 }

@@ -25,7 +25,7 @@ const SearchProducts = () => {
 
   useEffect(() => {
     if (isError) {
-      console.error('Projects searching error', error); // eslint-disable-line no-console
+      console.error('Projects searching error', error);
       dispatch(setProducts([]));
     } else if (productsData) {
       dispatch(setProducts(productsData));
