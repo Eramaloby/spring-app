@@ -23,7 +23,7 @@ export const rtkQueryLogger: Middleware = (_api: MiddlewareAPI) => (next) => (ac
       }
     }
 
-    console.error('RTK Query API Error (local console for debug):', errorMessage, payload); // eslint-disable-line no-console
+    console.error('RTK Query API Error (local console for debug):', errorMessage, payload);
 
     sendLogToServer({
       level: 'error',

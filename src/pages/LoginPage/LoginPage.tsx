@@ -57,7 +57,7 @@ const LoginPage = () => {
         errorMessage = err.message;
       }
 
-      console.error('Login failed:', err); // eslint-disable-line no-console
+      console.error('Login failed:', err);
       dispatch(userError(errorMessage));
     }
   };

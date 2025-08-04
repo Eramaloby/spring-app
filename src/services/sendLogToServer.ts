@@ -10,6 +10,6 @@ export const sendLogToServer = async (logData: {
   try {
     await axios.post(`${apiUrl}log/`, logData);
   } catch (error) {
-    console.error('Failed to send log to server:', error); // eslint-disable-line no-console
+    console.error('Failed to send log to server:', error);
   }
 };
