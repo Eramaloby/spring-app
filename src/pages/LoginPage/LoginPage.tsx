@@ -1,15 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { isRejectedWithValue } from '@reduxjs/toolkit';
-
-import {
-  isFetchBaseQueryError,
-  isSerializedError,
-  isHttpError,
-  isNetworkError,
-} from '../utils/typeGuards/typeGuards';
-
 import { useAppDispatch } from '../../hooks/useAppHooks';
 
 import { useLoginMutation } from '../../services/authApi';
@@ -37,25 +28,7 @@ const LoginPage = () => {
 
       navigate('/');
     } catch (err: unknown) {
-      let errorMessage: string = 'Unknown login error.';
-
-      if (isRejectedWithValue(err)) {
-        if (isFetchBaseQueryError(err)) {
-          if (isHttpError(err)) {
-            if (err.data && typeof err.data === 'object' && 'message' in err.data) {
-              errorMessage = (err.data as { message: string }).message;
-            }
-          } else if (isNetworkError(err)) {
-            errorMessage = err.error;
-          }
-        } else if (isSerializedError(err)) {
-          if (typeof err.message === 'string') {
-            errorMessage = err.message;
-          }
-        }
-      } else if (err instanceof Error) {
-        errorMessage = err.message;
-      }
+      const errorMessage: string = 'Login error.';
 
       console.error('Login failed:', err);
       dispatch(userError(errorMessage));
@@ -65,24 +38,11 @@ const LoginPage = () => {
   const displayErrorMessage = () => {
     if (!isError || !loginError) return null;
 
-    if (isFetchBaseQueryError(loginError)) {
-      if (isHttpError(loginError)) {
-        if (
-          loginError.data &&
-          typeof loginError.data === 'object' &&
-          'message' in loginError.data
-        ) {
-          return (loginError.data as { message: string }).message;
-        }
-      } else if (isNetworkError(loginError)) {
-        return loginError.error;
-      }
-    } else if (isSerializedError(loginError)) {
-      if (typeof loginError.message === 'string') {
-        return loginError.message;
-      }
+    if ('status' in loginError) {
+      const errMsg = 'error' in loginError ? loginError.error : JSON.stringify(loginError.data);
+      return errMsg;
     }
-    return 'Unknown login error.';
+    return loginError.message;
   };
 
   return (
