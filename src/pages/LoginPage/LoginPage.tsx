@@ -2,27 +2,47 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch } from '../../hooks/useAppHooks';
-import { setUserIsAuthenticated } from '../../store/user/user.actions';
+
+import { useLoginMutation } from '../../services/authApi';
+import { loginSuccess, userLoading, userError } from '../../features/user/userSlice';
 
 import styles from './LoginPage.module.css';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
+  const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
+  const [performLogin, { isLoading, isError, error: loginError }] = useLoginMutation();
 
-    if (username === 'admin' && password === '1234') {
-      dispatch(setUserIsAuthenticated());
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(userLoading());
+
+    try {
+      const result = await performLogin({ login, password }).unwrap();
+
+      dispatch(loginSuccess(result.user));
+
       navigate('/');
-    } else {
-      setError('Wrong username or password!');
+    } catch (err: unknown) {
+      const errorMessage: string = 'Login error.';
+
+      console.error('Login failed:', err);
+      dispatch(userError(errorMessage));
     }
+  };
+
+  const displayErrorMessage = () => {
+    if (!isError || !loginError) return null;
+
+    if ('status' in loginError) {
+      const errMsg = 'error' in loginError ? loginError.error : JSON.stringify(loginError.data);
+      return errMsg;
+    }
+    return loginError.message;
   };
 
   return (
@@ -34,8 +54,9 @@ const LoginPage = () => {
             <label htmlFor={styles['username']}>User name:</label>
             <input
               type='text'
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              id='username'
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
               required
             />
           </div>
@@ -43,13 +64,16 @@ const LoginPage = () => {
             <label htmlFor={styles['password']}>Password:</label>
             <input
               type='password'
+              id='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          {error && <p className={styles['error-message']}>{error}</p>}
-          <button type='submit'>Log in</button>
+          {isError && <p className={styles['error-message']}>{displayErrorMessage()}</p>}
+          <button type='submit' disabled={isLoading}>
+            Log in
+          </button>
         </form>
       </div>
     </div>

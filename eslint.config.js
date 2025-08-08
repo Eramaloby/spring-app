@@ -8,7 +8,7 @@ import eslintPluginPrettier from 'eslint-plugin-prettier';
 
 export default tseslint.config(
   {
-    ignores: ['dist', 'build', 'node_modules'],
+    ignores: ['dist', 'build', 'node_modules', './jest.config.ts'],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -38,7 +38,7 @@ export default tseslint.config(
       'prettier/prettier': 'error',
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-      'no-console': 'warn',
+      'no-console': ['warn', { allow: ['warn', 'error', 'info', 'debug'] }],
       'react-hooks/exhaustive-deps': 'warn',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
