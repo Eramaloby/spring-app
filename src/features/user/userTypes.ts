@@ -8,4 +8,5 @@ export interface UserState {
   isAuthenticated: boolean;
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
   error: string | null;
+  accessToken: string | null;
 }
