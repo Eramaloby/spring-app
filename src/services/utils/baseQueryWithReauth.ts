@@ -8,10 +8,11 @@ import { setAccessToken } from '../../features/user/userSlice';
 import { getApiUrl } from '../../pages/utils/getApiUrl/getApiUrl';
 import type { RootState } from '../../store';
 
-const apiUrl = getApiUrl();
+const usersApiUrl = getApiUrl();
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: apiUrl,
+  baseUrl: usersApiUrl,
+  credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const accessToken = (getState() as RootState).user.accessToken;
     if (accessToken) {
@@ -29,8 +30,11 @@ export const baseQueryWithReauth: BaseQueryFn<
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 401) {
-    const refreshResult = await baseQuery({ url: '/refresh', method: 'POST' }, api, extraOptions);
-
+    const refreshResult = await baseQuery(
+      { url: 'users/refresh', method: 'POST' },
+      api,
+      extraOptions
+    );
     if (refreshResult.data) {
       const { accessToken } = refreshResult.data as { accessToken: string };
       api.dispatch(setAccessToken(accessToken));
