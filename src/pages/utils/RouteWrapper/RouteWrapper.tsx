@@ -9,7 +9,9 @@ interface RouteWrapperProps {
 }
 
 const RouteWrapper = ({ children, guestOnly = false }: RouteWrapperProps) => {
-  const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
+  const isAuthenticated = useAppSelector(
+    (state) => state.user.isAuthenticated && state.user.accessToken
+  );
   if (guestOnly && isAuthenticated) {
     return <Navigate to='/' replace />;
   }
