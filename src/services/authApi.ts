@@ -14,12 +14,12 @@ import { getApiUrl } from '../pages/utils/getApiUrl/getApiUrl';
 
 import { setAccessToken } from '../features/user/userSlice';
 
-const apiUrl = getApiUrl();
+const usersApiUrl = getApiUrl() + 'users';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: apiUrl,
+    baseUrl: usersApiUrl,
   }),
   endpoints: (builder) => ({
     login: builder.mutation<LoginSuccessResponse, LoginRequestBody>({
