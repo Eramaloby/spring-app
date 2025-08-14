@@ -5,6 +5,7 @@ import {
   userLoadingReducer,
   userErrorReducer,
   accessTokenReducer,
+  setIsAuthenticatedReducer,
 } from './userReducers';
 
 const initialUserState: UserState = {
@@ -23,8 +24,10 @@ const userSlice = createSlice({
     userLoading: userLoadingReducer,
     userError: userErrorReducer,
     setAccessToken: accessTokenReducer,
+    setIsAuthenticated: setIsAuthenticatedReducer,
   },
 });
 
-export const { loginSuccess, userLoading, userError, setAccessToken } = userSlice.actions;
+export const { loginSuccess, userLoading, userError, setAccessToken, setIsAuthenticated } =
+  userSlice.actions;
 export default userSlice.reducer;

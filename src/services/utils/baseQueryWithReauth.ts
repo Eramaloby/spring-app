@@ -6,20 +6,12 @@ import {
 } from '@reduxjs/toolkit/query/react';
 import { setAccessToken } from '../../features/user/userSlice';
 import { getApiUrl } from '../../pages/utils/getApiUrl/getApiUrl';
-import type { RootState } from '../../store';
 
 const usersApiUrl = getApiUrl();
 
 const baseQuery = fetchBaseQuery({
   baseUrl: usersApiUrl,
   credentials: 'include',
-  prepareHeaders: (headers, { getState }) => {
-    const accessToken = (getState() as RootState).user.accessToken;
-    if (accessToken) {
-      headers.set('Authorization', `Bearer ${accessToken}`);
-    }
-    return headers;
-  },
 });
 
 export const baseQueryWithReauth: BaseQueryFn<

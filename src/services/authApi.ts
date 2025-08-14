@@ -29,16 +29,6 @@ export const authApi = createApi({
         method: 'POST',
         body: credentials,
       }),
-      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          if (data.accessToken) {
-            dispatch(setAccessToken(data.accessToken));
-          }
-        } catch (error) {
-          console.error('Login failed: ', error);
-        }
-      },
       transformErrorResponse: (response: { status: number; data: LoginErrorResponse }) => {
         return response.data;
       },
@@ -63,7 +53,14 @@ export const authApi = createApi({
         return response.data;
       },
     }),
+    refresh: builder.query<{ accessToken: string }, void>({
+      query: () => ({
+        url: 'refresh',
+        method: 'POST',
+        body: 'credentials',
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useSignUpMutation } = authApi;
+export const { useLoginMutation, useSignUpMutation, useLazyRefreshQuery } = authApi;
