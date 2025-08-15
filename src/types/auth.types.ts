@@ -1,4 +1,4 @@
-import { type User } from '../features/user/userTypes';
+import type { User } from '../features/user/userTypes';
 
 export interface LoginRequestBody {
   login: string;
@@ -6,8 +6,9 @@ export interface LoginRequestBody {
 }
 
 export interface LoginSuccessResponse {
-  message: string;
   user: User;
+  accessToken: string;
+  message: string;
 }
 
 export interface LoginErrorResponse {

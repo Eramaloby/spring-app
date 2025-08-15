@@ -1,11 +1,10 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { type Product } from '../constants/productsBlockContent';
-
-const apiUrl = import.meta.env.VITE_API_URL;
+import { baseQueryWithReauth } from './utils/baseQueryWithReauth';
 
 export const productsApi = createApi({
   reducerPath: 'productsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: apiUrl }),
+  baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({
     getProducts: builder.query<Product[], string | void>({
       query: (searchTerm) => {

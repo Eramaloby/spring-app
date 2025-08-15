@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
-
-import { useAppSelector } from '../../../hooks/useAppHooks';
+import { useRecoverSession } from '../../../hooks/useRecoverSession';
 
 interface RouteWrapperProps {
   children: ReactNode;
@@ -9,7 +8,12 @@ interface RouteWrapperProps {
 }
 
 const RouteWrapper = ({ children, guestOnly = false }: RouteWrapperProps) => {
-  const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
+  const { isCheckingAuth, isAuthenticated } = useRecoverSession();
+
+  if (isCheckingAuth) {
+    return <p>Trying authenticate...</p>;
+  }
+
   if (guestOnly && isAuthenticated) {
     return <Navigate to='/' replace />;
   }

@@ -15,3 +15,11 @@ export const userErrorReducer = (state: UserState, action: PayloadAction<string>
   state.loading = 'failed';
   state.error = action.payload;
 };
+
+export const accessTokenReducer = (state: UserState, action: PayloadAction<string | null>) => {
+  state.accessToken = action.payload;
+};
+
+export const setIsAuthenticatedReducer = (state: UserState, action: PayloadAction<boolean>) => {
+  state.isAuthenticated = action.payload;
+};

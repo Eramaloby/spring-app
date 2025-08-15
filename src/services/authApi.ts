@@ -5,13 +5,23 @@ import {
   type LoginRequestBody,
   type LoginErrorResponse,
 } from '../types/auth.types';
+import type {
+  SignUpSuccessResponse,
+  SignUpRequestBody,
+  SignUpErrorResponse,
+} from '../types/signup.types';
 import { getApiUrl } from '../pages/utils/getApiUrl/getApiUrl';
 
-const apiUrl = getApiUrl();
+import { setAccessToken } from '../features/user/userSlice';
+
+const usersApiUrl = getApiUrl() + 'users';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
-  baseQuery: fetchBaseQuery({ baseUrl: apiUrl }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: usersApiUrl,
+    credentials: 'include',
+  }),
   endpoints: (builder) => ({
     login: builder.mutation<LoginSuccessResponse, LoginRequestBody>({
       query: (credentials) => ({
@@ -23,7 +33,34 @@ export const authApi = createApi({
         return response.data;
       },
     }),
+    signUp: builder.mutation<SignUpSuccessResponse, SignUpRequestBody>({
+      query: (credentials) => ({
+        url: 'signup',
+        method: 'POST',
+        body: credentials,
+      }),
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          if (data.accessToken) {
+            dispatch(setAccessToken(data.accessToken));
+          }
+        } catch (error) {
+          console.error('Sign up failed: ', error);
+        }
+      },
+      transformErrorResponse: (response: { status: number; data: SignUpErrorResponse }) => {
+        return response.data;
+      },
+    }),
+    refresh: builder.query<{ accessToken: string }, void>({
+      query: () => ({
+        url: 'refresh',
+        method: 'POST',
+        body: 'credentials',
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useSignUpMutation, useLazyRefreshQuery } = authApi;
